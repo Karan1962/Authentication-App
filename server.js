@@ -11,8 +11,9 @@ require('dotenv').config()
  
 const app = express();
  
-app.use(express.static("public"));
+app.use(express.static(__dirname+"/public"));
 app.set("view engine","ejs");
+app.set("views",__dirname+"/views")
 app.use(bodyParser.urlencoded({
     extended:true
 }));
@@ -36,7 +37,7 @@ app.use(passport.session());
 main().catch(err => console.log(err));
  
 async function main() {
-    await mongoose.connect('mongodb://127.0.0.1:27017/userDB')
+    await mongoose.connect(process.env.MONGO_URL)
    
 }
  
